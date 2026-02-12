@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/canaria-computer/m3bridge/cmd"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	cmd.Execute()
 }
