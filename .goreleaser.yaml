@@ -38,6 +38,20 @@ archives:
       - goos: windows
         formats: [zip]
 
+scoops:
+  - name: down-force
+    repository:
+      owner: canaria-computer
+      name: scoop-bucket
+    homepage: https://github.com/canaria-computer/m3bridge
+    license: "MIT LICENSE"
+
+nfpms:
+  - file_name_template: "{{ .ConventionalFileName }}"
+    maintainer: "canaria-collection <121685177+canaria-computer@users.noreply.github.com>"
+    license: "MIT"
+    formats: [deb, rpm, apk]
+
 changelog:
   sort: asc
   filters:
