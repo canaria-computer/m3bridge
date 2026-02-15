@@ -19,9 +19,11 @@ builds:
   - env:
       - CGO_ENABLED=0
     goos:
-      - linux
       - windows
       - darwin
+      - linux
+    goarch:
+      - amd64
 
 archives:
   - formats: [tar.gz]
@@ -39,7 +41,7 @@ archives:
         formats: [zip]
 
 scoops:
-  - name: down-force
+  - name: m3bridge
     repository:
       owner: canaria-computer
       name: scoop-bucket
