@@ -41,7 +41,7 @@ archives:
         formats: [zip]
 
 scoops:
-  - name: down-force
+  - name: m3bridge
     repository:
       owner: canaria-computer
       name: scoop-bucket
