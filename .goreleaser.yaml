@@ -35,8 +35,15 @@ dockers:
   - image_templates:
       - "ghcr.io/canaria-computer/m3bridge:{{ .Tag }}"
       - "ghcr.io/canaria-computer/m3bridge:latest"
-    dockerfile: Dockerfile
+    # GoReleaser のビルドコンテキストはソースではなく dist/ 内のバイナリのみ
+    # Dockerfile.goreleaser はビルド済みバイナリをコピーするだけのランタイム専用
+    dockerfile: Dockerfile.goreleaser
     use: buildx
+    # linux/amd64 バイナリを明示的にコンテキストへ含める
+    extra_files:
+      - Dockerfile.goreleaser
+    ids:
+      - m3bridge
     build_flag_templates:
       - "--platform=linux/amd64"
       - "--label=org.opencontainers.image.title=m3bridge"

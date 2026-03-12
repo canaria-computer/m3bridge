@@ -1,0 +1,14 @@
+FROM alpine:3.21
+
+RUN apk add --no-cache ca-certificates tzdata
+
+WORKDIR /app
+
+COPY m3bridge /usr/local/bin/m3bridge
+
+VOLUME ["/data"]
+
+EXPOSE 2525
+
+ENTRYPOINT ["m3bridge"]
+CMD ["serve"]
