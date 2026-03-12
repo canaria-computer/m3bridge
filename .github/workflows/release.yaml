@@ -30,7 +30,7 @@ jobs:
       - name: Determine version bump type
         id: bump_type
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          if [[  "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "bump=minor" >> $GITHUB_OUTPUT
           else
             echo "bump=patch" >> $GITHUB_OUTPUT
@@ -61,6 +61,15 @@ jobs:
         with:
           go-version: stable
 
+      - name: Log in to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          # ghcr.io push には packages: write 権限を持つ GITHUB_TOKEN を使う
+          # GH_TOKEN (PAT) はスコープ不足で unauthorized になる
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
@@ -68,4 +77,8 @@ jobs:
           version: "~> v2"
           args: release --clean
         env:
+          # GoReleaser に渡すトークン:
+          #   - GitHub Release 作成・scoop-bucket へのプッシュ → PAT (GH_TOKEN) が必要
+          #   - ghcr.io push → 上の docker/login-action で事前ログイン済みのため
+          #                    GITHUB_TOKEN は不要（docker CLI のクレデンシャルを再利用）
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

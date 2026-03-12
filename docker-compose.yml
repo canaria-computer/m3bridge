@@ -1,0 +1,18 @@
+services:
+  m3bridge:
+    image: ghcr.io/canaria-computer/m3bridge:latest
+    # ローカルビルドの場合は上記をコメントアウトし、以下を有効化
+    # build: .
+    container_name: m3bridge
+    restart: unless-stopped
+    ports:
+      - "2525:2525"
+    volumes:
+      # 設定ファイルとトークンキャッシュの永続化
+      # ホスト側の ~/.m3bridge を /data にマウント
+      - "${HOME}/.m3bridge:/data"
+    environment:
+      # HOME を /data に向けることで、m3bridge が /data/.m3bridge を設定ディレクトリとして使用する
+      - HOME=/
+    # 初回認証はホスト側で行う:
+    #   docker compose run --rm m3bridge auth
