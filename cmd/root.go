@@ -15,7 +15,7 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "msgraph-smtp",
+	Use:   "m3bridge",
 	Short: "Microsoft Graph経由でメールを送信するSMTPサーバ",
 	Long: `Microsoft Graph APIを使用してメールを送信するローカルSMTPサーバ。
 OAuth 2.0認証を使用し、SMTPプロトコル経由で受信したメールをMicrosoft Graphで送信します。`,
@@ -31,7 +31,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "設定ファイルパス (デフォルト: $HOME/.msgraph-smtp.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "設定ファイルパス (デフォルト: $HOME/.m3bridge.yaml)")
 	rootCmd.PersistentFlags().String("log-level", "info", "ログレベル (debug, info, warn, error)")
 
 	viper.BindPFlag("log-level", rootCmd.PersistentFlags().Lookup("log-level"))
@@ -53,7 +53,7 @@ func initConfig() {
 
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
-		viper.SetConfigName(".msgraph-smtp")
+		viper.SetConfigName(".m3bridge")
 	}
 
 	viper.AutomaticEnv()

@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	ConfigDirName  = ".msgraph-smtp"
+	ConfigDirName  = ".m3bridge"
 	ConfigFileName = "config.json"
 )
 
@@ -104,7 +104,7 @@ func (m *Manager) initialize() error {
 		SMTP: SMTPConfig{
 			Host:     "localhost",
 			Port:     2525,
-			Username: "msgraph",
+			Username: "m3bridge",
 			Password: password,
 		},
 		Graph: GraphConfig{
